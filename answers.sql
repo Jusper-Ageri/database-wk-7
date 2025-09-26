@@ -1,24 +1,24 @@
 QUESTION ONE ANSWER:
--- Step 1: Create database if it does not exist
+-- Create database if it does not exist
 CREATE DATABASE IF NOT EXISTS ProductDetail;
 
--- Step 2: Use the database
+-- Use the database
 USE ProductDetail;
 
--- Step 3: Create original table
+-- Create original table
 CREATE TABLE IF NOT EXISTS ProductDetailRaw (
     OrderID INT,
     CustomerName VARCHAR(100),
     Products VARCHAR(255)
 );
 
--- Step 4: Insert sample data
+-- Insert sample data
 INSERT INTO ProductDetailRaw (OrderID, CustomerName, Products) VALUES
 (101, 'John Doe', 'Laptop, Mouse'),
 (102, 'Jane Smith', 'Tablet, Keyboard, Mouse'),
 (103, 'Emily Clark', 'Phone');
 
--- Step 5: Transform into 1NF
+-- Transform into 1NF
 -- We’ll split the comma-separated values into separate rows
 -- Using a recursive CTE (MySQL 8.0+)
 WITH RECURSIVE SplitProducts AS (
@@ -54,13 +54,13 @@ USE OrderDetail;
 DROP TABLE IF EXISTS OrderProducts;
 DROP TABLE IF EXISTS Orders;
 
--- Step 1: Create Orders table
+-- Create Orders table
 CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
     CustomerName VARCHAR(100) NOT NULL
 );
 
--- Step 2: Create OrderProducts table
+-- Create OrderProducts table
 CREATE TABLE OrderProducts (
     OrderID INT,
     Product VARCHAR(100) NOT NULL,
@@ -69,14 +69,14 @@ CREATE TABLE OrderProducts (
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
 
--- Step 3: Insert data into Orders
+-- Insert data into Orders
 INSERT INTO Orders (OrderID, CustomerName)
 VALUES
 (101, 'John Doe'),
 (102, 'Jane Smith'),
 (103, 'Emily Clark');
 
--- Step 4: Insert data into OrderProducts
+-- Insert data into OrderProducts
 INSERT INTO OrderProducts (OrderID, Product, Quantity)
 VALUES
 (101, 'Laptop', 2),
@@ -85,6 +85,7 @@ VALUES
 (102, 'Keyboard', 1),
 (102, 'Mouse', 2),
 (103, 'Phone', 1);
+
 
 
 
