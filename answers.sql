@@ -46,5 +46,45 @@ WHERE Product <> '';
 
 QUESTION TWO ANSWER: 
 
+-- Create database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS OrderDetail;
+USE OrderDetail;
+
+-- Drop tables if they already exist (to avoid duplicates when re-running)
+DROP TABLE IF EXISTS OrderProducts;
+DROP TABLE IF EXISTS Orders;
+
+-- Step 1: Create Orders table
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerName VARCHAR(100) NOT NULL
+);
+
+-- Step 2: Create OrderProducts table
+CREATE TABLE OrderProducts (
+    OrderID INT,
+    Product VARCHAR(100) NOT NULL,
+    Quantity INT NOT NULL,
+    PRIMARY KEY (OrderID, Product),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+);
+
+-- Step 3: Insert data into Orders
+INSERT INTO Orders (OrderID, CustomerName)
+VALUES
+(101, 'John Doe'),
+(102, 'Jane Smith'),
+(103, 'Emily Clark');
+
+-- Step 4: Insert data into OrderProducts
+INSERT INTO OrderProducts (OrderID, Product, Quantity)
+VALUES
+(101, 'Laptop', 2),
+(101, 'Mouse', 1),
+(102, 'Tablet', 3),
+(102, 'Keyboard', 1),
+(102, 'Mouse', 2),
+(103, 'Phone', 1);
+
 
 
